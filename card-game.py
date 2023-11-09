@@ -1,3 +1,5 @@
+from random import shuffle
+
 class Card:
     def __init__(self, type, value):
         self.type = type
@@ -26,6 +28,30 @@ class Deck:
         # for type in types:
         #     for value in values:
         #         self.cards.append(Card(type, value))
-        print(self.cards)
+        
+    def numberofCard(self):
+        return len(self.cards)
+    
+    def shuffletheCards(self):
+        if self.numberofCard() < 52:
+            raise ValueError("you can shuffle the cards without destroying the deck.")
+        shuffle(self.cards)
+        
+    def dealtheCards(self, piece):
+        numberofCard = self.numberofCard()
+        if numberofCard == 0:
+            raise ValueError("no cards")
+        piece = min([numberofCard, piece])
+        
+        cards = self.cards[-piece:]
+        self.cards = self.cards[:-piece]
+        return cards
 
-Deck()
+deck1 = Deck()
+deck1.shuffletheCards()
+result = deck1.cards
+
+print(deck1.dealtheCards(7))
+print(deck1.numberofCard())
+
+print(result)
